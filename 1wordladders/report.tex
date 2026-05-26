@@ -1,0 +1,24 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage{booktabs}
+\usepackage{microtype}
+\pagestyle{empty}
+
+\title{Word ladders report}
+\author{Carl Waller Snygg}
+
+\begin{document}
+  \maketitle
+
+  \section{Results}
+  The check\_solution.sh script confirmed that all my solutions were correct. When I ran the program on the largest input file, it finished in about three seconds. Most of the time is spent just building the graph at the beginning. Once the graph is built, answering the actual shortest-path queries is practically instant.
+
+  \section{Implementation details}
+  I represented the graph as an adjacency list using a standard Python dictionary. To find the shortest paths, I implemented a Breadth-First Search (BFS). 
+  
+  For the data structures, I used a \texttt{deque} for my queue so that popping from the front is fast. I also used a \texttt{set} to keep track of the words I had already visited, preventing the search from going in circles. 
+  
+  The overall running time is dominated by the initial graph construction. Because the program has to compare the letters of almost every word against every other word, building the graph takes $O(N^2)$ time. The BFS itself is very efficient and runs in $O(m +n)$ time, since it only checks each word and its connections at most once.
+
+\end{document}
