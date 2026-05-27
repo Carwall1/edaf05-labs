@@ -7,17 +7,29 @@
 \pagestyle{empty}
 
 \title{Making Friends Report}
-\author{Author 1 and Author 2}
+\author{Carl Waller and [Lab Partner Name]}
 
 \begin{document}
   \maketitle
 
   \section{Results}
+  
+  The \texttt{check\_solution.sh} script confirmed that all our solutions were correct. 
 
-  \todo[inline]{Briefly comment the results, did the script say all your solutions were correct? Approximately how long time does it take for the program to run on the largest input? What takes the majority of the time?}
+  On the largest input files containing up to 3 million edges, the program takes about 4 seconds to run. 
+
+  The absolute biggest bottleneck in the execution is sorting the array of edges. Even with Python's highly optimized sorting algorithm, ordering millions of elements takes up the vast majority of the runtime. Reading the massive input files was initially a heavy bottleneck as well, but mitigated this by using a generator to evaluate the input stream .
 
   \section{Implementation details}
 
-  \todo[inline]{How did you implement the solution? Which data structures were used? Which modifications to these data structures were used? What is the overall running time? Why?}
+  I implemented Kruskal's algorithm to find the Minimum Spanning Tree of the graph. 
 
-\end{document}
+  For the core data structure, I used a Disjoint Set Union DSU or Union-Find. This was implemented using two simple, flat arrays: a parent array to track the root representative of each friend group, and a rank array to keep track of the tree depths. 
+
+  To ensure the program was fast enough to pass the time limits, I applied two specific modifications to the DSU:
+  
+  When merging two sets, I evaluate their ranks and always attach the root of the shallower tree to the root of the taller tree. This prevents the tree from degrading into a slow linked list.
+  Optimized the find function using an iterative while loop instead of standard recursion which would trigger a RecursionError on such a deep graph. As we traverse up the tree, we point every node directly to its grandparent, effectively flattening the path in half the steps.
+  
+
+  The overall time complexity is O(M log M)
