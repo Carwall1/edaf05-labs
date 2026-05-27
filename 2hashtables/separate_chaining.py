@@ -8,7 +8,7 @@ class HashTable:
 
     def _get_bucket(self, key):
         key_hash = hash(key)
-        index = key_hash % self.capacity
+        index = key_hash & (self.capacity - 1) # CHANGED: Replaced modulo with bitwise AND for faster indexing
         return self.buckets[index]
 
     def _resize(self, new_capacity):
@@ -18,7 +18,7 @@ class HashTable:
         for bucket in self.buckets:# Rehash and move existing elements to the new buckets
             for key, value in bucket:
                 key_hash = hash(key)
-                index = key_hash % new_capacity
+                index = key_hash & (new_capacity - 1) # bitwise AND for fast indexing
                 new_buckets[index].append([key, value])
         
         self.capacity = new_capacity
@@ -50,12 +50,12 @@ class HashTable:
     def delete(self, key):
         bucket = self._get_bucket(key)
         
-        for i in range(len(bucket)):# Find and delete the pair
+        for i in range(len(bucket)):# Find and delete the key-value pair
             if bucket[i][0] == key:
                 bucket.pop(i)
                 self.size -= 1
                 
-                if self.capacity > 1 and self.size <= self.capacity // 4: #redudce the size if neeeded
+                if self.capacity > 1 and self.size <= self.capacity // 4:
                     self._resize(self.capacity // 2)
                     
                 return
