@@ -1,7 +1,7 @@
 import sys
 
 def kruskal(num_nodes, edges):
-    # timsort is optimized in C so its quick 0(mlogm), however slowest step 
+    # timsort is optimized in C so its quick 0(nlogn), however slowest step 
     edges.sort() 
 
     parent = list(range(num_nodes + 1))
