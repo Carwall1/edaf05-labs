@@ -8,7 +8,7 @@ class HashTable:
 
     def _get_bucket(self, key):
         key_hash = hash(key)
-        index = key_hash & (self.capacity - 1) # CHANGED: Replaced modulo with bitwise AND for faster indexing
+        index = key_hash & (self.capacity - 1) 
         return self.buckets[index]
 
     def _resize(self, new_capacity):
@@ -24,7 +24,7 @@ class HashTable:
         self.capacity = new_capacity
         self.buckets = new_buckets
 
-    def insert(self, key, value): # Resize if the average bucket length reaches 1 
+    def insert(self, key, value): # Resize 
         bucket = self._get_bucket(key)
         
         for i in range(len(bucket)): # Update value if the key already exists
