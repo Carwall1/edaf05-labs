@@ -3,21 +3,22 @@
 \usepackage[utf8]{inputenc}
 \usepackage{booktabs}
 \usepackage{microtype}
-\usepackage[colorinlistoftodos]{todonotes}
 \pagestyle{empty}
 
-\title{Closest Pair Report}
+\title{closest pair Report}
 \author{Author 1 and Author 2}
 
 \begin{document}
   \maketitle
 
   \section{Results}
-
-  \todo[inline]{Briefly comment the results, did the script say all your solutions were correct? Approximately how long time does it take for the program to run on the largest input? What takes the majority of the time?}
+  The testing script confirmed that all our solutions were correct. When running the code with the PyPy compiler, it easily handles the largest inputs in a few seconds. The vast majority of the execution time is spent on the initial sorting of the points and the overhead of the recursive function calls. 
 
   \section{Implementation details}
+  I implemented a divide and conquer algorithm. Sorted the points by their x-coordinates. The function then recursively splits the points into left and right halves to find the smallest distance on either side. Finally, we check a narrow strip down the middle to see if any points cross the boundary. 
+  
+  For data structures I just used standard Python lists of tuples to store the coordinates. Rather than maintaining a second list sorted by y-coordinates throughout the whole program I created a new list for the middle strip and sorted it on the fly using Python's built-in sort (fast c optimized). 
+  
+  The overall running time is O(n log n).
 
-  \todo[inline]{How did you implement the solution? Which data structures were used? Which modifications to these data structures were used? What is the overall running time? Why?}
-
-\end{document}
+\end{document} 

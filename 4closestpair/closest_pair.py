@@ -4,7 +4,6 @@ import math
 def get_min_dist(points):
     n = len(points)
     
-    # overhead of splitting isn't worth it for tiny arrays
     if n <= 3:
         min_d = float('inf')
         for i in range(n):
@@ -14,27 +13,32 @@ def get_min_dist(points):
                     min_d = d
         return min_d
 
+    #divide
     mid = n // 2
     mid_x = points[mid][0]
 
     dl = get_min_dist(points[:mid])
     dr = get_min_dist(points[mid:])
+
     d = min(dl, dr)
 
-    # zero distance means duplicate points
-    if d == 0.0:
+
+   
+    if d == 0.0: # zero distance 
         return d
 
     # filter points near the boundary line and sort by y
-    # timsort handles these nearly empty arrays efficiently
+    # timsort handles these nearly empty arrays fastr
+
+    #
     strip = [p for p in points if abs(p[0] - mid_x) < d]
     strip.sort(key=lambda p: p[1])
-
     strip_len = len(strip)
+
     for i in range(strip_len):
         # pigeonhole principle guarantees we only need to check the next 7 points
         for j in range(i + 1, min(i + 8, strip_len)):
-            # break early if y difference already exceeds our current best distance
+            # break early if y difference already exceeds the current best distance
             if strip[j][1] - strip[i][1] >= d:
                 break
             
@@ -46,8 +50,7 @@ def get_min_dist(points):
 
 def main():
     raw_input = sys.stdin.read().split()
-    if not raw_input:
-        return
+    
         
     n = int(raw_input[0])
     points = []
@@ -56,7 +59,7 @@ def main():
         idx = 1 + i * 2
         points.append((float(raw_input[idx]), float(raw_input[idx+1])))
         
-    # sort by x once at the very beginning
+    # sort by x once at the very beginning O(nlogN)
     points.sort(key=lambda p: p[0])
     
     min_distance = get_min_dist(points)
@@ -64,3 +67,6 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
+#./check_solution.sh pypy3 closest_pair.py   

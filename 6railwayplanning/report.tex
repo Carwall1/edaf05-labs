@@ -7,17 +7,19 @@
 \pagestyle{empty}
 
 \title{Stealing Railways Report}
-\author{Author 1 and Author 2}
+\author{Carl Waller Snygg}
 
 \begin{document}
   \maketitle
 
   \section{Results}
-
-  \todo[inline]{Briefly comment the results, did the script say all your solutions were correct? Approximately how long time does it take for the program to run on the largest input? What takes the majority of the time?}
+  
+  The script reported all solutions as correct. On the largest input, the program runs in approximately 10 seconds. The majority of the time is spent repeatedly rebuilding the residual graph and calculating the maximum flow during the binary search iterations.
 
   \section{Implementation details}
-
-  \todo[inline]{How did you implement the solution? Which data structures were used? Which modifications to these data structures were used? What is the overall running time? Why?}
+  
+  The solution uses a binary search over the number of routes to remove, combined with the Edmonds Karp algorithm to verify the maximum flow at each step. The main data structures are a double-ended queue for the breadth-first search and dictionaries to store the adjacency list and residual capacities. To manage state, the capacity dictionary is completely rebuilt during each binary search step, deliberately excluding the routes planned for removal. 
+  
+  The overall upper bound running time is O(log(P) * V E^2). This occurs because the binary search requires O(log P) steps, and during each step, the Edmonds-Karp algorithm takes O(V E^2) time in the worst case to find the maximum flow. The 10-second runtime on the largest input is expected due to the overhead of dictionary operations in Python and the graph reconstruction on each check.
 
 \end{document}

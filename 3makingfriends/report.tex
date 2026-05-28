@@ -7,14 +7,14 @@
 \pagestyle{empty}
 
 \title{Making Friends Report}
-\author{Carl Waller and [Lab Partner Name]}
+\author{Carl Waller Snygg}
 
 \begin{document}
   \maketitle
 
   \section{Results}
   
-  The \texttt{check\_solution.sh} script confirmed that all our solutions were correct. 
+  The script confirmed that all solutions were correct. 
 
   On the largest input files containing up to 3 million edges, the program takes about 4 seconds to run. 
 
@@ -24,7 +24,7 @@
 
   I implemented Kruskal's algorithm to find the Minimum Spanning Tree of the graph. 
 
-  For the core data structure, I used a Disjoint Set Union DSU or Union-Find. This was implemented using two simple, flat arrays: a parent array to track the root representative of each friend group, and a rank array to keep track of the tree depths. 
+  For the core data structure, I used a DSU or Union-Find. This was implemented using two simple, flat arrays: a parent array to track the root representative of each friend group, and a rank array to keep track of the tree depths. 
 
   To ensure the program was fast enough to pass the time limits, I applied two specific modifications to the DSU:
   
@@ -32,4 +32,4 @@
   Optimized the find function using an iterative while loop instead of standard recursion which would trigger a RecursionError on such a deep graph. As we traverse up the tree, we point every node directly to its grandparent, effectively flattening the path in half the steps.
   
 
-  The overall time complexity is O(M log M)
+  The overall time complexity is O(M log M) due to sorting the DSU is essentially O(1) for each union and find 
